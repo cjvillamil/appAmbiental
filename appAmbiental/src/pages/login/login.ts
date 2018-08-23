@@ -4,6 +4,8 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
+import { LoginServiceProvider } from '../../providers/login-service/login-service';
+import { Usuario } from '../../shared/user';
 
 @IonicPage()
 @Component({
@@ -14,9 +16,13 @@ export class LoginPage {
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
+  account:Usuario = { 
+    usuario: '',
+    username: '',
+    correo: '', 
+    password: '', 
+    nombre:'', 
+    apellido:''
   };
 
   // Our translated text strings
@@ -25,7 +31,9 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public LoginService:LoginServiceProvider
+  ) {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
@@ -33,7 +41,7 @@ export class LoginPage {
   }
 
   // Attempt to login in through our User service
-  doLogin() {
+  /*doLogin() {
     this.user.login(this.account).subscribe((resp) => {
       this.navCtrl.push(MainPage);
     }, (err) => {
@@ -46,5 +54,8 @@ export class LoginPage {
       });
       toast.present();
     });
+  }*/
+  doLogin(){
+    this.LoginService.login(this.account);
   }
 }
