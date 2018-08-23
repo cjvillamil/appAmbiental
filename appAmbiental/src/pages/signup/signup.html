@@ -17,20 +17,6 @@
             </ion-item>
 
             <ion-item>
-                <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-                <ion-input type="email" [(ngModel)]="account.correo" name="correo"></ion-input>
-            </ion-item>
-
-            <!--
-      Want to add a Username? Here you go:
-
-      <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input type="text" [(ngModel)]="account.username" name="username"></ion-input>
-      </ion-item>
-      -->
-
-            <ion-item>
                 <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
                 <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
             </ion-item>
@@ -42,10 +28,23 @@
 
             <ion-item>
                 <ion-label fixed>{{ 'LASTNAME' | translate }}</ion-label>
-                <ion-input type="text" [(ngModel)]="account.apellido" name="apellido"></ion-input>
+                <ion-input type="text" [(ngModel)]="account.primerapellido" name="primerapellido"></ion-input>
             </ion-item>
 
+            <ion-item>
+                <ion-label fixed>{{ 'LASTNAME2' | translate }}</ion-label>
+                <ion-input type="text" [(ngModel)]="account.segundoapellido" name="segundoapellido"></ion-input>
+            </ion-item>
 
+            <ion-item>
+                <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+                <ion-input type="email" [(ngModel)]="account.correo" name="correo"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label fixed>{{ 'PHONE' | translate }}</ion-label>
+                <ion-input type="phone" [(ngModel)]="account.telcontacto" name="telefono"></ion-input>
+            </ion-item>
 
             <div padding>
                 <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>

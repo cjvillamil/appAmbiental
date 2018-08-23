@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, Events } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
@@ -17,14 +17,14 @@ export class LoginPage {
   // If you're using the username field with or without email, make
   // sure to add it to the type
   account:Usuario = { 
-    usuario: '',
     username: '',
-    correo: '', 
-    password: '', 
-    nombre:'', 
-    apellido:''
+    password: '',
+    nombre: '',
+    primerapellido: '',
+    segundoapellido: '',
+    correo: '',
+    telcontacto: ''
   };
-
   // Our translated text strings
   private loginErrorString: string;
 
@@ -32,9 +32,13 @@ export class LoginPage {
     public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService,
-    public LoginService:LoginServiceProvider
+    public LoginService:LoginServiceProvider,
+    public events:Events
   ) {
-
+     this. events.subscribe('user:created',(user,time) =>{
+        console.log(user);
+        this.navCtrl.push(MainPage);
+      });
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
     })
@@ -57,5 +61,8 @@ export class LoginPage {
   }*/
   doLogin(){
     this.LoginService.login(this.account);
+
+  
+
   }
 }

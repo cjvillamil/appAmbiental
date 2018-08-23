@@ -1,5 +1,2 @@
-export const baseUrl='http://fedesoft-class.herokuapp.com';
-/*export const generalConfig ={
-    value1:"",
-    value2:""
-};*/
+//export const baseUrl='https://fedesoft-class.herokuapp.com/';
+export const baseUrl='https://fedesoftambiental.herokuapp.com/';

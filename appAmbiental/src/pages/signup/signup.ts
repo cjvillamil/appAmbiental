@@ -18,12 +18,13 @@ export class SignupPage {
   // If you're using the username field with or without email, make
   // sure to add it to the type
   account:Usuario = { 
-    usuario: '',
     username: '',
-    correo: '', 
-    password: '', 
-    nombre:'', 
-    apellido:''
+    password: '',
+    nombre: '',
+    primerapellido: '',
+    segundoapellido: '',
+    correo: '',
+    telcontacto: ''
   };
 
   // Our translated text strings

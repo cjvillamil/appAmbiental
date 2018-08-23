@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { baseUrl } from '../../shared/config';
 import { Observable } from 'rxjs/Observable';
 import { Usuario } from '../../shared/user';
-import { ToastController } from 'ionic-angular';
+import { ToastController, Events } from 'ionic-angular';
 
 interface AuthResponse {
   status: string,
@@ -29,15 +29,16 @@ export class LoginServiceProvider {
   authToken: string = undefined;
   constructor(
     public http: HttpClient,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    public event:Events
   ) {
     console.log('Hello LoginServiceProvider Provider');
     this.loadUserCredentials();
   }
 
-  presentToast() {
+  presentToast(myMessage:string) {
     let toast = this.toastCtrl.create({
-      message: 'Login incorrecto',
+      message: myMessage,
       showCloseButton: true,
       closeButtonText: 'ok',
       position: 'top'
@@ -56,7 +57,7 @@ export class LoginServiceProvider {
       
     }); */
     if (credentials) {
-      if (credentials.usuario != undefined) {
+      if (credentials.token != undefined) {
         this.isAuthenticated = true;
         //this.useCredentials(credentials);
 
@@ -92,9 +93,12 @@ export class LoginServiceProvider {
           username:userData.username,
           token:usuario.token
         }
-        this.storeUserCredentials(newCredentials)
+        this.event.publish('user:created',newCredentials,Date.now());
+        console.log(usuario);
+        this.presentToast('Bienvenido: '+userData.username)
+        this.storeUserCredentials(newCredentials);
       },
-      (error) => { this.presentToast(); }
+      (error) => { this.presentToast('Login incorrecto'); }
     );
   }
   IsAuthenticated(): boolean {
