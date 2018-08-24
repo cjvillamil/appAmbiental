@@ -59,7 +59,8 @@ export class MapaPage {
     /*this.coord.forEach((punto)=>{
       this.addMarker(punto);
     });*/
-    let bounds = new google.maps.LatLngBounds();
+    let bounds = new google.maps.LatLngBounds(); 
+    
     this.coord.forEach((punto) => {
       this.addMarker(punto);
       bounds.extend(punto);
