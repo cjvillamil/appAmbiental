@@ -16,6 +16,7 @@ declare const google;
 export class MapaPage {
   myLocation;
   map;
+  marker;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -29,10 +30,25 @@ export class MapaPage {
     this.myLocation = {lat: 4.646412, lng: -74.077778};
     console.log(this.myLocation)
     this.map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
+      zoom: 25,
       center: this.myLocation,
       mapTypeId: 'satellite'
     });
+
+    this.marker = new google.maps.Marker({
+      map: this.map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: this.myLocation
+    });
+    this.marker.addListener('click', this.toggleBounce.bind(this));
+  }
+  toggleBounce() {
+    if (this.marker.getAnimation() !== null) {
+      this.marker.setAnimation(null);
+    } else {
+      this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
   }
 
 }
