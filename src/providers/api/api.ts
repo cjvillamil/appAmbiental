@@ -1,19 +1,26 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { baseUrl } from '../../shared/config';
 /**
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
 export class Api {
-  url: string = 'https://fedesoft-class.herokuapp.com';
-
-  constructor(public http: HttpClient) {
+  url: string = baseUrl;//'https://fedesoft-class.herokuapp.com';
+  private token;
+  constructor(
+    public http: HttpClient,
+    //public headers:HttpHeaders
+  ) {
+    let credentials = JSON.parse(localStorage.getItem('TOKEN')||'{}');
+    this.token = credentials.token;
+    //this.headers.set('Authorization','Bearer '+this.token);
   }
 
   get(endpoint: string, params?: any, reqOpts?: any) {
     if (!reqOpts) {
       reqOpts = {
+        headers:{'Authorization':'Bearer '+this.token},
         params: new HttpParams()
       };
     }
@@ -26,22 +33,26 @@ export class Api {
       }
     }
 
-    return this.http.get(this.url + '/' + endpoint, reqOpts);
+    return this.http.get(this.url  + endpoint, reqOpts);
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+    reqOpts.headers = {'Authorization':'Bearer '+this.token};
+    return this.http.post(this.url  + endpoint, body, reqOpts);
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+    reqOpts.headers = {'Authorization':'Bearer '+this.token};
+    return this.http.put(this.url  + endpoint, body, reqOpts);
   }
 
   delete(endpoint: string, reqOpts?: any) {
-    return this.http.delete(this.url + '/' + endpoint, reqOpts);
+    reqOpts.headers = {'Authorization':'Bearer '+this.token};
+    return this.http.delete(this.url  + endpoint, reqOpts);
   }
 
   patch(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
+    reqOpts.headers = {'Authorization':'Bearer '+this.token};
+    return this.http.patch(this.url  + endpoint, body, reqOpts);
   }
 }

@@ -3,6 +3,7 @@ import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
 import { Item } from '../../models/item';
 import { Items } from '../../providers';
+import { Api } from '../../providers/api/api';
 
 @IonicPage()
 @Component({
@@ -12,8 +13,20 @@ import { Items } from '../../providers';
 export class ListMasterPage {
   currentItems: Item[];
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public items: Items, 
+    public modalCtrl: ModalController,
+    public apiServices:Api
+  ) {
     this.currentItems = this.items.query();
+    this.apiServices.get('puntosRecoleccion').subscribe(
+      (puntosReciclaje)=>{
+        console.log(puntosReciclaje);
+      },(err)=>{
+        console.log(err);
+      }
+    )
   }
 
   /**
